@@ -1,107 +1,359 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Social Hub - Alexia Luz de Ferro (Versão Otimizada)</title>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Social Hub das Pombagiras</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@600&display=swap');
+
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        color: white;
-        background: linear-gradient(180deg, #130013, #000000);
-        overflow-x: hidden;
+      background: linear-gradient(135deg, #2a0038, #8b004d, #ff1a53, #1a0000);
+      background-size: 500% 500%;
+      animation: gradientFlow 15s ease infinite;
+      font-family: 'Playfair Display', serif;
+      color: #ffd1dc;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    /* Fundo simples com leve movimento */
-    .background-soft {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at center, rgba(255,0,60,0.12), transparent 60%),
-                    radial-gradient(circle at bottom, rgba(150,0,255,0.18), transparent 70%);
-        animation: slowMove 16s infinite alternate ease-in-out;
-        z-index: -1;
+    @keyframes gradientFlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    @keyframes slowMove {
-        0% { transform: translateY(0px); }
-        100% { transform: translateY(-25px); }
+    /* Halo místico */
+    .halo {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,0,100,0.35), transparent);
+      filter: blur(70px);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulseHalo 5s ease-in-out infinite alternate;
+      z-index: 0;
+      pointer-events: none;
     }
 
-    h1 {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 38px;
-        text-shadow: 0 0 12px #ff003c;
+    @keyframes pulseHalo {
+      from { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+      to   { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
     }
 
-    .hub-container {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        max-width: 500px;
-        margin: 40px auto;
+    /* Barra de Navegação Lateral (Scroll) */
+    .nav-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 1rem 0;
+      scrollbar-width: thin;
+      scrollbar-color: #ff3399 #4a0033;
     }
 
-    /* Botões mais leves e otimizados */
-    .button {
-        width: 100%;
-        padding: 16px 20px;
-        background: linear-gradient(45deg, #ff003c, #9a00cc);
-        border: none;
-        border-radius: 40px;
-        font-size: 18px;
-        color: #fff;
-        text-align: center;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 0 0 14px #ff0044aa;
-        transition: transform 0.22s ease, box-shadow 0.22s ease;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
+    .nav-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    .nav-container::-webkit-scrollbar-track {
+      background: #2a0038;
+      border-radius: 10px;
+    }
+    .nav-container::-webkit-scrollbar-thumb {
+      background: linear-gradient(#ff3399, #8b004d);
+      border-radius: 10px;
     }
 
-    .button:hover {
-        transform: scale(1.07);
-        box-shadow: 0 0 22px #ff0044ff;
+    .logo {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      margin: 0 1rem 1rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
-</style>
+
+    .logo h1 {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 2.2rem;
+      background: linear-gradient(90deg, #ff4d94, #ffcc00, #ff3399);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(255,100,200,0.7);
+      animation: titlePulse 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes titlePulse {
+      from { text-shadow: 0 0 15px rgba(255,100,200,0.7); }
+      to   { text-shadow: 0 0 30px rgba(255,50,150,1); }
+    }
+
+    .logo p {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      opacity: 0.85;
+      font-style: italic;
+    }
+
+    /* Grid de Botões (Scroll Vertical) */
+    .btn-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.8rem;
+      padding: 1rem;
+      flex: 1;
+    }
+
+    .btn {
+      position: relative;
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ff1a6f, #8b004d, #2a0038);
+      box-shadow: 
+        0 8px 18px rgba(0,0,0,0.5),
+        inset 0 4px 10px rgba(255,255,255,0.15),
+        0 0 35px rgba(255,20,100,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      animation: floatBtn 6s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.1s);
+    }
+
+    .btn:hover {
+      transform: translateY(-10px) scale(1.12);
+      box-shadow: 
+        0 25px 40px rgba(0,0,0,0.6),
+        0 0 60px rgba(255,20,100,1);
+      z-index: 20;
+    }
+
+    .btn:active {
+      animation: vibrate 0.6s linear;
+    }
+
+    @keyframes vibrate {
+      0%, 100% { transform: translateX(0); }
+      10% { transform: translateX(-4px) rotate(-3deg); }
+      20% { transform: translateX(4px) rotate(3deg); }
+      30% { transform: translateX(-4px) rotate(-3deg); }
+      40% { transform: translateX(4px) rotate(3deg); }
+      50% { transform: translateX(-4px) rotate(-3deg); }
+      60% { transform: translateX(4px) rotate(3deg); }
+      70% { transform: translateX(-4px) rotate(-3deg); }
+      80% { transform: translateX(4px) rotate(3deg); }
+      90% { transform: translateX(-4px) rotate(-3deg); }
+    }
+
+    @keyframes floatBtn {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .btn i {
+      font-size: 2.1rem;
+      margin-bottom: 5px;
+      text-shadow: 0 0 12px rgba(255,255,255,0.7);
+    }
+
+    .btn span {
+      font-size: 0.8rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    }
+
+    /* Efeito Ripple */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      transform: scale(0);
+      animation: rippleAnim 0.7s linear;
+      pointer-events: none;
+    }
+
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Responsivo */
+    @media (min-width: 768px) {
+      .nav-container {
+        width: 380px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 30px;
+        margin: 2vh auto;
+        height: 96vh;
+        box-shadow: 0 0 60px rgba(255,20,100,0.4);
+        background: rgba(20,0,30,0.5);
+        backdrop-filter: blur(12px);
+      }
+      .logo h1 { font-size: 2.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .btn { width: 95px; height: 95px; }
+      .btn i { font-size: 1.8rem; }
+      .logo h1 { font-size: 1.9rem; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="background-soft"></div>
+  <div class="halo"></div>
 
-<h1>🌹 Social Hub de Alexia Luz de Ferro 🌹</h1>
+  <div class="nav-container">
+    <div class="logo">
+      <h1>Social Hub das Pombagiras</h1>
+      <p>Desperte o fogo sagrado. Role e clique.</p>
+    </div>
 
-<div class="hub-container">
-    <a target="_blank" href="https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR" class="button">📱 TikTok — Espelhos de Pombagira</a>
-    <a target="_blank" href="https://www.tiktok.com/@almasdepombagira?lang=pt-BR" class="button">🔥 TikTok — Almas de Pombagira</a>
-    <a target="_blank" href="https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR" class="button">🌹 TikTok — Alexia Rosa de Fogo</a>
+    <div class="btn-grid">
+      <!-- TikTok 1 -->
+      <a href="https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR" class="btn" style="--i:1" data-sound="click1">
+        <i class="fab fa-tiktok"></i>
+        <span>Espelhos</span>
+      </a>
 
-    <a target="_blank" href="https://www.youtube.com/@almasdepombagira" class="button">▶️ YouTube — Almas de Pombagira</a>
+      <!-- TikTok 2 -->
+      <a href="https://www.tiktok.com/@almasdepombagira?lang=pt-BR" class="btn" style="--i:2" data-sound="click2">
+        <i class="fab fa-tiktok"></i>
+        <span>Almas</span>
+      </a>
 
-    <a target="_blank" href="https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw" class="button">📸 Instagram — Almas de Pombagira</a>
+      <!-- TikTok 3 -->
+      <a href="https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR" class="btn" style="--i:3" data-sound="click3">
+        <i class="fab fa-tiktok"></i>
+        <span>Rosa de Fogo</span>
+      </a>
 
-    <a target="_blank" href="https://www.threads.com/@almasdepombagira" class="button">🧵 Threads — Almas de Pombagira</a>
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/@almasdepombagira" class="btn" style="--i:4" data-sound="click4">
+        <i class="fab fa-youtube"></i>
+        <span>YouTube</span>
+      </a>
 
-    <a target="_blank" href="https://www.meta.ai/@alexiamelusine" class="button">✨ Meta AI — Alexia Melusine</a>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw" class="btn" style="--i:5" data-sound="click5">
+        <i class="fab fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
 
-    <a target="_blank" href="https://sora.chatgpt.com/profile/alexialuzdeferro" class="button">🔮 Sora — Alexia Luz de Ferro</a>
+      <!-- Threads -->
+      <a href="https://www.threads.com/@almasdepombagira" class="btn" style="--i:6" data-sound="click6">
+        <i class="fab fa-threads"></i>
+        <span>Threads</span>
+      </a>
 
-    <a target="_blank" href="https://t.me/pomba_giras" class="button">💬 Telegram — Pomba Giras</a>
+      <!-- Meta AI -->
+      <a href="https://www.meta.ai/@alexiamelusine" class="btn" style="--i:7" data-sound="click7">
+        <i class="fas fa-robot"></i>
+        <span>Meta AI</ Sør</span>
+      </a>
 
-    <a target="_blank" href="https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G" class="button">💚 WhatsApp Canal — Almas de Pombagira</a>
+      <!-- Sora -->
+      <a href="https://sora.chatgpt.com/profile/alexialuzdeferro" class="btn" style="--i:8" data-sound="click8">
+        <i class="fas fa-comment-dots"></i>
+        <span>Sora</span>
+      </a>
 
-    <a target="_blank" href="https://br.pinterest.com/almasdepombagira/" class="button">📌 Pinterest — Almas de Pombagira</a>
+      <!-- Telegram -->
+      <a href="https://t.me/pomba_giras" class="btn" style="--i:9" data-sound="click9">
+        <i class="fab fa-telegram"></i>
+        <span>Telegram</span>
+      </a>
 
-    <a target="_blank" href="https://www.kwai.com/@AlmasdePombagira" class="button">🎥 Kwai — Almas de Pombagira</a>
-    <a target="_blank" href="https://www.kwai.com/@AlexiaRosadeFogo" class="button">🔥 Kwai — Alexia Rosa de Fogo</a>
-</div>
+      <!-- WhatsApp -->
+      <a href="https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G" class="btn" style="--i:10" data-sound="click10">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
 
+      <!-- Pinterest -->
+      <a href="https://br.pinterest.com/almasdepombagira/" class="btn" style="--i:11" data-sound="click11">
+        <i class="fab fa-pinterest"></i>
+        <span>Pinterest</span>
+      </a>
+
+      <!-- Kwai Almas -->
+      <a href="https://www.kwai.com/@AlmasdePombagira" class="btn" style="--i:12" data-sound="click12">
+        <i class="fas fa-video"></i>
+        <span>Kwai Almas</span>
+      </a>
+
+      <!-- Kwai Rosa -->
+      <a href="https://www.kwai.com/@AlexiaRosadeFogo" class="btn" style="--i:13" data-sound="click13">
+        <i class="fas fa-video"></i>
+        <span>Kwai Rosa</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Sons Mágicos -->
+  <audio id="click1" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-bloom-3118.mp3"></audio>
+  <audio id="click2" src="https://assets.mixkit.co/sfx/preview/mixkit-ethereal-fairy-voice-3119.mp3"></audio>
+  <audio id="click3" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-3120.mp3"></audio>
+  <audio id="click4" src="https://assets.mixkit.co/sfx/preview/mixkit-mystical-fairy-3121.mp3"></audio>
+  <audio id="click5" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-confirmation-3122.mp3"></audio>
+  <audio id="click6" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-potion-3123.mp3"></audio>
+  <audio id="click7" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-lock-3124.mp3"></audio>
+  <audio id="click8" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-bells-3125.mp3"></audio>
+  <audio id="click9" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-coin-3126.mp3"></audio>
+  <audio id="click10" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-wand-3127.mp3"></audio>
+  <audio id="click11" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-dust-3128.mp3"></audio>
+  <audio id="click12" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-chime-3129.mp3"></audio>
+  <audio id="click13" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sweep-3130.mp3"></audio>
+
+  <script>
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        // Ripple
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        ripple.classList.add('ripple');
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
+
+        // Som
+        const soundId = this.getAttribute('data-sound');
+        const sound = document.getElementById(soundId);
+        if (sound) {
+          sound.currentTime = 0;
+          sound.play().catch(() => {});
+        }
+
+        // Vibração no celular
+        if (navigator.vibrate) {
+          navigator.vibrate([60, 40, 60]);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
