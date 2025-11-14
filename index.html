@@ -2,358 +2,183 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <meta name="theme-color" content="#4a0033">
-  <title>Social Hub das Pombagiras</title>
-  <link rel="manifest" href="data:application/manifest+json,{
-    'name': 'Pombagiras Hub',
-    'short_name': 'Pombagiras',
-    'start_url': '.',
-    'display': 'standalone',
-    'background_color': '#2a0038',
-    'theme_color': '#8b004d',
-    'icons': [{'src': 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ff1a53%22/%3E%3Cpath d=%22M50 20 L60 40 L80 40 L65 55 L70 75 L50 65 L30 75 L35 55 L20 40 L40 40 Z%22 fill=%22%23fff%22/%3E%3C/svg%3E','sizes':'192x192','type':'image/svg+xml'}]
-  }">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pombagiras Hub</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Playfair+Display+SC:wght@700&display=swap');
 
     :root {
-      --primary: #ff1a53;
-      --deep-purple: #2a0038;
-      --blood-red: #8b004d;
-      --black-void: #1a0000;
-      --glow: #ff3399;
+      --bg: #1a001a;
+      --card: rgba(30, 0, 40, 0.85);
+      --accent: #ff1a53;
+      --text: #ffe6f2;
+      --border: rgba(255, 51, 153, 0.3);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { height: 100%; overflow: hidden; }
-    
     body {
-      background: linear-gradient(135deg, var(--deep-purple), var(--blood-red), var(--primary), var(--black-void));
-      background-size: 400% 400%;
-      animation: cosmicFlow 18s ease infinite;
+      background: linear-gradient(135deg, #2a0038, #8b004d, #1a0000);
       font-family: 'Cormorant Garamond', serif;
-      color: #ffe6f2;
+      color: var(--text);
+      min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      flex-direction: column;
       padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
-    @keyframes cosmicFlow {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Halo Místico Central */
-    .halo {
-      position: absolute;
-      width: 90vmin; height: 90vmin;
-      border-radius: 50%;
-      background: radial-gradient(circle at center, rgba(255,20,100,0.4), transparent 70%);
-      filter: blur(80px);
-      animation: breath 6s ease-in-out infinite alternate;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    @keyframes breath {
-      from { transform: scale(1); opacity: 0.6; }
-      to   { transform: scale(1.3); opacity: 0.9; }
-    }
-
-    /* Container Principal */
-    .hub {
-      position: relative;
-      z-index: 10;
-      width: 100vw;
-      height: 100vh;
+    .container {
+      flex: 1;
       max-width: 420px;
-      max-height: 900px;
-      background: rgba(20,0,30,0.65);
-      backdrop-filter: blur(15px);
-      border-radius: 32px;
-      box-shadow: 
-        0 0 80px rgba(255,20,100,0.5),
-        inset 0 0 40px rgba(255,255,255,0.1);
-      overflow: hidden;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
       display: flex;
       flex-direction: column;
-      border: 1px solid rgba(255,51,153,0.3);
     }
 
-    /* Cabeçalho Místico */
-    .header {
+    header {
       text-align: center;
-      padding: 2rem 1.5rem 1rem;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+      margin-bottom: 2rem;
     }
 
-    .header h1 {
+    h1 {
       font-family: 'Playfair Display SC', serif;
       font-size: 2.4rem;
-      background: linear-gradient(90deg, #ff66b3, #ffcc00, #ff3399);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 20px rgba(255,100,200,0.8);
-      animation: titleFlame 3s ease-in-out infinite;
+      color: #ff66b3;
       letter-spacing: 1px;
+      margin-bottom: 0.5rem;
     }
 
-    @keyframes titleFlame {
-      0%, 100% { text-shadow: 0 0 20px rgba(255,100,200,0.8); }
-      50% { text-shadow: 0 0 35px rgba(255,50,150,1), 0 0 50px rgba(255,20,100,0.8); }
-    }
-
-    .header p {
+    p.tagline {
       font-size: 1.1rem;
-      margin-top: 0.8rem;
       opacity: 0.9;
       font-style: italic;
-      color: #ff99cc;
-      animation: fadeIn 2s ease-out 0.5s both;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 0.9; transform: translateY(0); }
-    }
-
-    /* Área de Rolagem */
-    .scroll-area {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1.5rem;
-      scrollbar-width: thin;
-      scrollbar-color: var(--glow) var(--deep-purple);
-    }
-
-    .scroll-area::-webkit-scrollbar {
-      width: 6px;
-    }
-    .scroll-area::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .scroll-area::-webkit-scrollbar-thumb {
-      background: linear-gradient(var(--glow), var(--blood-red));
-      border-radius: 10px;
-    }
-
-    /* Grid de Botões */
-    .btn-grid {
+    .links {
       display: flex;
       flex-direction: column;
-      gap: 1.8rem;
-      align-items: center;
+      gap: 1.2rem;
+      flex: 1;
     }
 
     .btn {
-      --delay: calc(var(--i) * 0.1s);
-      position: relative;
-      width: 108px; height: 108px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, #ff1a6f, #8b004d, #2a0038);
-      box-shadow: 
-        0 10px 20px rgba(0,0,0,0.5),
-        inset 0 5px 12px rgba(255,255,255,0.2),
-        0 0 40px rgba(255,20,100,0.7);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      gap: 1rem;
+      width: 100%;
+      padding: 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: white;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: rise 1.2s ease-out var(--delay) both, float 5s ease-in-out infinite var(--delay);
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(30px) scale(0.8); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      font-size: 1rem;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
     }
 
     .btn:hover {
-      transform: translateY(-14px) scale(1.15);
-      box-shadow: 
-        0 30px 50px rgba(0,0,0,0.6),
-        0 0 70px rgba(255,20,100,1);
-    }
-
-    .btn:active {
-      animation: vibrate 0.6s linear;
-    }
-
-    @keyframes vibrate {
-      0%,100% { transform: translateX(0); }
-      10%,30%,50%,70%,90% { transform: translateX(-4px) rotate(-3deg); }
-      20%,40%,60%,80% { transform: translateX(4px) rotate(3deg); }
+      background: rgba(255, 26, 83, 0.15);
+      border-color: var(--accent);
+      transform: translateY(-2px);
     }
 
     .btn i {
-      font-size: 2.2rem;
-      margin-bottom: 6px;
-      text-shadow: 0 0 15px rgba(255,255,255,0.8);
+      font-size: 1.5rem;
+      color: var(--accent);
     }
 
     .btn span {
-      font-size: 0.78rem;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+      flex: 1;
+      text-align: left;
     }
 
-    /* Efeito Ripple */
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.6);
-      transform: scale(0);
-      animation: rippleAnim 0.7s ease-out;
-      pointer-events: none;
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      color: #cc99cc;
+      border-top: 1px solid rgba(255, 51, 153, 0.2);
+      margin-top: auto;
     }
 
-    @keyframes rippleAnim {
-      to { transform: scale(4); opacity: 0; }
-    }
-
-    /* Responsivo Universal */
     @media (min-width: 768px) {
-      .hub { margin: 2vh auto; height: 96vh; }
-      .header h1 { font-size: 2.8rem; }
-    }
-
-    @media (max-width: 360px) {
-      .btn { width: 95px; height: 95px; }
-      .btn i { font-size: 1.9rem; }
-      .header h1 { font-size: 2rem; }
+      .container { padding: 3rem 2rem; }
+      h1 { font-size: 2.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="halo"></div>
-
-  <div class="hub">
-    <div class="header">
+  <div class="container">
+    <header>
       <h1>Pombagiras</h1>
-      <p>Toque no fogo. Desperte o mistério.</p>
-      <p>Redes Socias.</p>
+      <p class="tagline">Conecte-se ao sagrado.</p>
+    </header>
+
+    <div class="links">
+      <a href="https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR" class="btn">
+        <i class="fab fa-tiktok"></i>
+        <span>Espelhos de Pombagira</span>
+      </a>
+      <a href="https://www.tiktok.com/@almasdepombagira?lang=pt-BR" class="btn">
+        <i class="fab fa-tiktok"></i>
+        <span>Almas de Pombagira</span>
+      </a>
+      <a href="https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR" class="btn">
+        <i class="fab fa-tiktok"></i>
+        <span>Alexia Rosa de Fogo</span>
+      </a>
+      <a href="https://www.youtube.com/@almasdepombagira" class="btn">
+        <i class="fab fa-youtube"></i>
+        <span>YouTube</span>
+      </a>
+      <a href="https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw" class="btn">
+        <i class="fab fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
+      <a href="https://www.threads.com/@almasdepombagira" class="btn">
+        <i class="fab fa-threads"></i>
+        <span>Threads</span>
+      </a>
+      <a href="https://www.meta.ai/@alexiamelusine" class="btn">
+        <i class="fas fa-robot"></i>
+        <span>Meta AI</span>
+      </a>
+      <a href="https://sora.chatgpt.com/profile/alexialuzdeferro" class="btn">
+        <i class="fas fa-comment-dots"></i>
+        <span>Sora Chat</span>
+      </a>
+      <a href="https://t.me/pomba_giras" class="btn">
+        <i class="fab fa-telegram"></i>
+        <span>Telegram</span>
+      </a>
+      <a href="https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G" class="btn">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
+      <a href="https://br.pinterest.com/almasdepombagira/" class="btn">
+        <i class="fab fa-pinterest"></i>
+        <span>Pinterest</span>
+      </a>
+      <a href="https://www.kwai.com/@AlmasdePombagira" class="btn">
+        <i class="fas fa-video"></i>
+        <span>Kwai Almas de Pombagira</span>
+      </a>
+      <a href="https://www.kwai.com/@AlexiaRosadeFogo" class="btn">
+        <i class="fas fa-video"></i>
+        <span>Kwai Rosa de Fogo</span>
+      </a>
     </div>
 
-    <div class="scroll-area">
-      <div class="btn-grid">
-        <a href="https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR" class="btn" style="--i:1" data-sound="click1">
-          <i class="fab fa-tiktok"></i>
-          <span>Espelhos</span>
-        </a>
-        <a href="https://www.tiktok.com/@almasdepombagira?lang=pt-BR" class="btn" style="--i:2" data-sound="click2">
-          <i class="fab fa-tiktok"></i>
-          <span>Almas</span>
-        </a>
-        <a href="https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR" class="btn" style="--i:3" data-sound="click3">
-          <i class="fab fa-tiktok"></i>
-          <span>Rosa de Fogo</span>
-        </a>
-        <a href="https://www.youtube.com/@almasdepombagira" class="btn" style="--i:4" data-sound="click4">
-          <i class="fab fa-youtube"></i>
-          <span>YouTube</span>
-        </a>
-        <a href="https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw" class="btn" style="--i:5" data-sound="click5">
-          <i class="fab fa-instagram"></i>
-          <span>Instagram</span>
-        </a>
-        <a href="https://www.threads.com/@almasdepombagira" class="btn" style="--i:6" data-sound="click6">
-          <i class="fab fa-threads"></i>
-          <span>Threads</span>
-        </a>
-        <a href="https://www.meta.ai/@alexiamelusine" class="btn" style="--i:7" data-sound="click7">
-          <i class="fas fa-robot"></i>
-          <span>Meta AI</span>
-        </a>
-        <a href="https://sora.chatgpt.com/profile/alexialuzdeferro" class="btn" style="--i:8" data-sound="click8">
-          <i class="fas fa-comment-dots"></i>
-          <span>Sora</span>
-        </a>
-        <a href="https://t.me/pomba_giras" class="btn" style="--i:9" data-sound="click9">
-          <i class="fab fa-telegram"></i>
-          <span>Telegram</span>
-        </a>
-        <a href="https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G" class="btn" style="--i:10" data-sound="click10">
-          <i class="fab fa-whatsapp"></i>
-          <span>WhatsApp</span>
-        </a>
-        <a href="https://br.pinterest.com/almasdepombagira/" class="btn" style="--i:11" data-sound="click11">
-          <i class="fab fa-pinterest"></i>
-          <span>Pinterest</span>
-        </a>
-        <a href="https://www.kwai.com/@AlmasdePombagira" class="btn" style="--i:12" data-sound="click12">
-          <i class="fas fa-video"></i>
-          <span>Kwai Almas</span>
-        </a>
-        <a href="https://www.kwai.com/@AlexiaRosadeFogo" class="btn" style="--i:13" data-sound="click13">
-          <i class="fas fa-video"></i>
-          <span>Kwai Rosa</span>
-        </a>
-      </div>
-    </div>
+    <footer>
+      &copy; Todos os direitos reservados - 2025 - By: @alexiamelusine
+    </footer>
   </div>
 
-  <!-- Sons Mágicos -->
-  <audio id="click1" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-bloom-3118.mp3"></audio>
-  <audio id="click2" src="https://assets.mixkit.co/sfx/preview/mixkit-ethereal-fairy-voice-3119.mp3"></audio>
-  <audio id="click3" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-3120.mp3"></audio>
-  <audio id="click4" src="https://assets.mixkit.co/sfx/preview/mixkit-mystical-fairy-3121.mp3"></audio>
-  <audio id="click5" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-confirmation-3122.mp3"></audio>
-  <audio id="click6" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-potion-3123.mp3"></audio>
-  <audio id="click7" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-lock-3124.mp3"></audio>
-  <audio id="click8" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-bells-3125.mp3"></audio>
-  <audio id="click9" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-coin-3126.mp3"></audio>
-  <audio id="click10" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-wand-3127.mp3"></audio>
-  <audio id="click11" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-dust-3128.mp3"></audio>
-  <audio id="click12" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-chime-3129.mp3"></audio>
-  <audio id="click13" src="https://assets.mixkit.co/sfx/preview/mixkit-magic-sweep-3130.mp3"></audio>
-
-  <script>
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size/2;
-        const y = e.clientY - rect.top - size/2;
-
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple');
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        this.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 700);
-
-        const sound = document.getElementById(this.dataset.sound);
-        if (sound) { sound.currentTime = 0; sound.play().catch(() => {}); }
-
-        if (navigator.vibrate) navigator.vibrate([70, 50, 70]);
-      });
-    });
-
-    // PWA Install Prompt
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-  </script>
 </body>
 </html>
