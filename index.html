@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Social Hub - Alexia Luz de Ferro</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: white;
+        background: radial-gradient(circle at center, #1b001f, #000000);
+        overflow-x: hidden;
+        height: 100vh;
+    }
+
+    /* Fundo com paralaxe e partículas */
+    .parallax-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://i.imgur.com/6YV0Z8B.png');
+        background-size: cover;
+        opacity: 0.28;
+        transform: translateZ(0);
+        animation: bgMove 20s infinite alternate ease-in-out;
+        z-index: -3;
+    }
+
+    @keyframes bgMove {
+        0% { transform: scale(1) translate(0, 0); }
+        50% { transform: scale(1.05) translate(-20px, -40px); }
+        100% { transform: scale(1) translate(0, 0); }
+    }
+
+    /* Névoa flutuante */
+    .fog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://i.imgur.com/4ZQZ4Qp.png');
+        background-size: cover;
+        opacity: 0.15;
+        animation: fogMove 30s infinite linear;
+        pointer-events: none;
+        z-index: -2;
+    }
+
+    @keyframes fogMove {
+        from { transform: translateX(-200px); }
+        to { transform: translateX(200px); }
+    }
+
+    /* Partículas brilhantes */
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: radial-gradient(circle, #ff0044, transparent);
+        border-radius: 50%;
+        animation: floatUp 8s linear infinite;
+        opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-500px) scale(0.2); opacity: 0; }
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 42px;
+        text-shadow: 0 0 25px #ff003c;
+    }
+
+    .hub-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 500px;
+        margin: 40px auto;
+    }
+
+    /* Botões com efeito 3D */
+    .button {
+        width: 100%;
+        padding: 18px 26px;
+        background: linear-gradient(45deg, #ff003c, #b300ff);
+        border: none;
+        border-radius: 50px;
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 0 18px #ff0044, inset 0 0 12px rgba(255, 255, 255, 0.2);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        perspective: 800px;
+    }
+
+    .button:hover {
+        transform: scale(1.12) rotateX(10deg);
+        box-shadow: 0 0 35px #ff0044;
+    }
+</style>
+</head>
+<body>
+
+<div class="parallax-bg"></div>
+<div class="fog"></div>
+<div class="particles" id="particles"></div>
+
+<h1>🌹 Social Hub de Alexia Luz de Ferro 🌹</h1>
+
+<div class="hub-container">
+    <a target="_blank" href="https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR" class="button" onclick="playClick()">📱 TikTok — Espelhos de Pombagira</a>
+    <a target="_blank" href="https://www.tiktok.com/@almasdepombagira?lang=pt-BR" class="button" onclick="playClick()">🔥 TikTok — Almas de Pombagira</a>
+    <a target="_blank" href="https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR" class="button" onclick="playClick()">🌹 TikTok — Alexia Rosa de Fogo</a>
+
+    <a target="_blank" href="https://www.youtube.com/@almasdepombagira" class="button" onclick="playClick()">▶️ YouTube — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw" class="button" onclick="playClick()">📸 Instagram — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://www.threads.com/@almasdepombagira" class="button" onclick="playClick()">🧵 Threads — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://www.meta.ai/@alexiamelusine" class="button" onclick="playClick()">✨ Meta AI — Alexia Melusine</a>
+
+    <a target="_blank" href="https://sora.chatgpt.com/profile/alexialuzdeferro" class="button" onclick="playClick()">🔮 Sora — Alexia Luz de Ferro</a>
+
+    <a target="_blank" href="https://t.me/pomba_giras" class="button" onclick="playClick()">💬 Telegram — Pomba Giras</a>
+
+    <a target="_blank" href="https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G" class="button" onclick="playClick()">💚 WhatsApp Canal — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://br.pinterest.com/almasdepombagira/" class="button" onclick="playClick()">📌 Pinterest — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://www.kwai.com/@AlmasdePombagira" class="button" onclick="playClick()">🎥 Kwai — Almas de Pombagira</a>
+    <a target="_blank" href="https://www.kwai.com/@AlexiaRosadeFogo" class="button" onclick="playClick()">🔥 Kwai — Alexia Rosa de Fogo</a>
+</div>
+
+<audio id="clickSound">
+    <source src="https://www.myinstants.com/media/sounds/magic-wand.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function playClick() {
+    const sound = document.getElementById('clickSound');
+    sound.currentTime = 0;
+    sound.play();
+}
+
+// Criar partículas
+function spawnParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 60; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        p.style.left = Math.random() * window.innerWidth + 'px';
+        p.style.top = (Math.random() * window.innerHeight + 200) + 'px';
+        p.style.animationDelay = Math.random() * 8 + 's';
+        container.appendChild(p);
+    }
+}
+spawnParticles();
+</script>
+
+</body>
+</html>
