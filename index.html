@@ -1,287 +1,107 @@
-import React, { useState, useEffect } from 'react';
-import { Instagram, Youtube, MessageCircle, Send, Pin, Sparkles } from 'lucide-react';
-
-export default function SocialLinksApp() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [hoveredBtn, setHoveredBtn] = useState(null);
-  const [clickedBtn, setClickedBtn] = useState(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const playClickSound = () => {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.frequency.value = 800;
-    oscillator.type = 'sine';
-    
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-    
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.3);
-  };
-
-  const handleClick = (index, url) => {
-    playClickSound();
-    setClickedBtn(index);
-    setTimeout(() => setClickedBtn(null), 600);
-    setTimeout(() => {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }, 200);
-  };
-
-  const socialLinks = [
-    {
-      name: 'TikTok - Espelhos',
-      url: 'https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR',
-      icon: '🎵',
-      color: 'from-black via-gray-900 to-cyan-500',
-      hoverColor: 'hover:shadow-cyan-500/50'
-    },
-    {
-      name: 'TikTok - Almas',
-      url: 'https://www.tiktok.com/@almasdepombagira?lang=pt-BR',
-      icon: '✨',
-      color: 'from-black via-gray-900 to-pink-500',
-      hoverColor: 'hover:shadow-pink-500/50'
-    },
-    {
-      name: 'TikTok - Alexia',
-      url: 'https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR',
-      icon: '🔥',
-      color: 'from-black via-red-900 to-orange-500',
-      hoverColor: 'hover:shadow-orange-500/50'
-    },
-    {
-      name: 'YouTube',
-      url: 'https://www.youtube.com/@almasdepombagira',
-      icon: <Youtube className="w-6 h-6" />,
-      color: 'from-red-600 via-red-500 to-red-400',
-      hoverColor: 'hover:shadow-red-500/50'
-    },
-    {
-      name: 'Instagram',
-      url: 'https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw',
-      icon: <Instagram className="w-6 h-6" />,
-      color: 'from-purple-600 via-pink-500 to-orange-400',
-      hoverColor: 'hover:shadow-pink-500/50'
-    },
-    {
-      name: 'Threads',
-      url: 'https://www.threads.com/@almasdepombagira',
-      icon: '🧵',
-      color: 'from-gray-900 via-gray-800 to-gray-700',
-      hoverColor: 'hover:shadow-gray-500/50'
-    },
-    {
-      name: 'Meta AI - Alexia',
-      url: 'https://www.meta.ai/@alexiamelusine',
-      icon: '🤖',
-      color: 'from-blue-600 via-indigo-500 to-purple-500',
-      hoverColor: 'hover:shadow-purple-500/50'
-    },
-    {
-      name: 'Sora ChatGPT',
-      url: 'https://sora.chatgpt.com/profile/alexialuzdeferro',
-      icon: '🎬',
-      color: 'from-emerald-600 via-teal-500 to-cyan-400',
-      hoverColor: 'hover:shadow-teal-500/50'
-    },
-    {
-      name: 'Telegram',
-      url: 'https://t.me/pomba_giras',
-      icon: <Send className="w-6 h-6" />,
-      color: 'from-blue-500 via-blue-400 to-sky-400',
-      hoverColor: 'hover:shadow-blue-500/50'
-    },
-    {
-      name: 'WhatsApp Canal',
-      url: 'https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G',
-      icon: <MessageCircle className="w-6 h-6" />,
-      color: 'from-green-600 via-green-500 to-emerald-400',
-      hoverColor: 'hover:shadow-green-500/50'
-    },
-    {
-      name: 'Pinterest',
-      url: 'https://br.pinterest.com/almasdepombagira/',
-      icon: <Pin className="w-6 h-6" />,
-      color: 'from-red-600 via-red-500 to-rose-400',
-      hoverColor: 'hover:shadow-rose-500/50'
-    },
-    {
-      name: 'Kwai - Almas',
-      url: 'https://www.kwai.com/@AlmasdePombagira',
-      icon: '🌟',
-      color: 'from-orange-600 via-orange-500 to-yellow-400',
-      hoverColor: 'hover:shadow-orange-500/50'
-    },
-    {
-      name: 'Kwai - Alexia',
-      url: 'https://www.kwai.com/@AlexiaRosadeFogo',
-      icon: '🌹',
-      color: 'from-rose-600 via-pink-500 to-red-400',
-      hoverColor: 'hover:shadow-rose-500/50'
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Social Hub - Alexia Luz de Ferro (Versão Otimizada)</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: white;
+        background: linear-gradient(180deg, #130013, #000000);
+        overflow-x: hidden;
     }
-  ];
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-rose-900 relative overflow-hidden">
-      {/* Partículas flutuantes animadas */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 2}s`
-            }}
-          >
-            <Sparkles 
-              className="text-pink-300 opacity-30" 
-              style={{ width: `${10 + Math.random() * 20}px` }}
-            />
-          </div>
-        ))}
-      </div>
+    /* Fundo simples com leve movimento */
+    .background-soft {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(255,0,60,0.12), transparent 60%),
+                    radial-gradient(circle at bottom, rgba(150,0,255,0.18), transparent 70%);
+        animation: slowMove 16s infinite alternate ease-in-out;
+        z-index: -1;
+    }
 
-      {/* Efeito de luz seguindo o mouse */}
-      <div
-        className="absolute w-96 h-96 rounded-full pointer-events-none transition-all duration-300 ease-out"
-        style={{
-          left: mousePos.x - 192,
-          top: mousePos.y - 192,
-          background: 'radial-gradient(circle, rgba(236,72,153,0.2) 0%, transparent 70%)',
-          filter: 'blur(40px)'
-        }}
-      />
+    @keyframes slowMove {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-25px); }
+    }
 
-      <style jsx>{`
-        @keyframes pulse-glow {
-          0%, 100% { box-shadow: 0 0 20px currentColor; }
-          50% { box-shadow: 0 0 40px currentColor; }
-        }
-        @keyframes expand-click {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.15); }
-          100% { transform: scale(1); }
-        }
-      `}</style>
+    h1 {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 38px;
+        text-shadow: 0 0 12px #ff003c;
+    }
 
-      <div className="relative z-10 container mx-auto px-4 py-12 max-w-2xl">
-        {/* Header com animação */}
-        <div className="text-center mb-12 animate-fade-in">
-          <div className="inline-block mb-6 relative">
-            <div className="absolute inset-0 bg-pink-500 blur-2xl opacity-50 animate-pulse"></div>
-            <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-300 to-purple-300 relative animate-pulse">
-              ✨ Almas de Pombagira ✨
-            </h1>
-          </div>
-          
-          <p className="text-xl text-pink-100 mb-4 animate-bounce">
-            🌹 Bem-vindo(a) ao meu universo místico! 🌹
-          </p>
-          
-          <p className="text-lg text-rose-200 mb-6 max-w-xl mx-auto leading-relaxed">
-            Clique nos botões abaixo para se conectar comigo em todas as plataformas. 
-            Cada rede social é uma porta para conteúdos exclusivos, energias poderosas e muito mais! 
-            🔮 Não perca nenhuma novidade!
-          </p>
+    .hub-container {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        max-width: 500px;
+        margin: 40px auto;
+    }
 
-          <div className="flex justify-center gap-3 mb-8">
-            <span className="text-4xl animate-bounce" style={{ animationDelay: '0s' }}>🔥</span>
-            <span className="text-4xl animate-bounce" style={{ animationDelay: '0.2s' }}>✨</span>
-            <span className="text-4xl animate-bounce" style={{ animationDelay: '0.4s' }}>🌟</span>
-          </div>
-        </div>
+    /* Botões mais leves e otimizados */
+    .button {
+        width: 100%;
+        padding: 16px 20px;
+        background: linear-gradient(45deg, #ff003c, #9a00cc);
+        border: none;
+        border-radius: 40px;
+        font-size: 18px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 0 14px #ff0044aa;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
 
-        {/* Grid de links */}
-        <div className="grid gap-4">
-          {socialLinks.map((link, index) => (
-            <button
-              key={index}
-              onClick={() => handleClick(index, link.url)}
-              onMouseEnter={() => setHoveredBtn(index)}
-              onMouseLeave={() => setHoveredBtn(null)}
-              className={`
-                group relative block p-6 rounded-2xl w-full
-                bg-gradient-to-r ${link.color}
-                transform transition-all duration-300 ease-out
-                hover:scale-105
-                ${link.hoverColor}
-                shadow-2xl hover:shadow-3xl
-                border border-white/20
-                overflow-hidden
-                cursor-pointer
-                ${clickedBtn === index ? 'animate-pulse' : ''}
-              `}
-              style={{
-                animation: clickedBtn === index ? 'expand-click 0.6s ease-out' : 'none'
-              }}
-            >
-              {/* Brilho animado no hover */}
-              <div className={`
-                absolute inset-0 transition-all duration-500
-                ${hoveredBtn === index ? 'bg-white/30' : 'bg-white/10'}
-              `} />
-              
-              <div className="relative flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className={`
-                    text-3xl transform transition-transform duration-300
-                    ${hoveredBtn === index ? 'scale-125 rotate-12' : 'scale-100'}
-                    ${clickedBtn === index ? 'scale-150' : ''}
-                  `}>
-                    {link.icon}
-                  </div>
-                  <span className="text-white font-bold text-lg tracking-wide">
-                    {link.name}
-                  </span>
-                </div>
-                
-                <div className={`
-                  transform transition-all duration-300
-                  ${hoveredBtn === index ? 'translate-x-2 scale-110' : 'translate-x-0'}
-                `}>
-                  <span className="text-white text-2xl">→</span>
-                </div>
-              </div>
+    .button:hover {
+        transform: scale(1.07);
+        box-shadow: 0 0 22px #ff0044ff;
+    }
+</style>
+</head>
+<body>
 
-              {/* Círculos expansivos no click */}
-              {clickedBtn === index && (
-                <>
-                  <div className="absolute inset-0 border-4 border-white rounded-2xl animate-ping opacity-75" />
-                  <div className="absolute inset-0 bg-white/20 rounded-2xl" 
-                       style={{ animation: 'expand-click 0.6s ease-out' }} />
-                </>
-              )}
-            </button>
-          ))}
-        </div>
+<div class="background-soft"></div>
 
-        {/* Footer com call-to-action */}
-        <div className="mt-12 text-center animate-pulse">
-          <p className="text-2xl text-pink-200 font-bold mb-4">
-            👆 Escolha sua plataforma favorita! 👆
-          </p>
-          <p className="text-lg text-rose-300">
-            💫 Juntos somos mais fortes! 💫
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+<h1>🌹 Social Hub de Alexia Luz de Ferro 🌹</h1>
+
+<div class="hub-container">
+    <a target="_blank" href="https://www.tiktok.com/@espelhosdepombagira?lang=pt-BR" class="button">📱 TikTok — Espelhos de Pombagira</a>
+    <a target="_blank" href="https://www.tiktok.com/@almasdepombagira?lang=pt-BR" class="button">🔥 TikTok — Almas de Pombagira</a>
+    <a target="_blank" href="https://www.tiktok.com/@alexiarosadefogo?lang=pt-BR" class="button">🌹 TikTok — Alexia Rosa de Fogo</a>
+
+    <a target="_blank" href="https://www.youtube.com/@almasdepombagira" class="button">▶️ YouTube — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://www.instagram.com/almasdepombagira/?igsh=Y3VocnA2aDQxYjlw" class="button">📸 Instagram — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://www.threads.com/@almasdepombagira" class="button">🧵 Threads — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://www.meta.ai/@alexiamelusine" class="button">✨ Meta AI — Alexia Melusine</a>
+
+    <a target="_blank" href="https://sora.chatgpt.com/profile/alexialuzdeferro" class="button">🔮 Sora — Alexia Luz de Ferro</a>
+
+    <a target="_blank" href="https://t.me/pomba_giras" class="button">💬 Telegram — Pomba Giras</a>
+
+    <a target="_blank" href="https://whatsapp.com/channel/0029VbBs2AnJkK7J9J0nLr2G" class="button">💚 WhatsApp Canal — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://br.pinterest.com/almasdepombagira/" class="button">📌 Pinterest — Almas de Pombagira</a>
+
+    <a target="_blank" href="https://www.kwai.com/@AlmasdePombagira" class="button">🎥 Kwai — Almas de Pombagira</a>
+    <a target="_blank" href="https://www.kwai.com/@AlexiaRosadeFogo" class="button">🔥 Kwai — Alexia Rosa de Fogo</a>
+</div>
+
+</body>
+</html>
