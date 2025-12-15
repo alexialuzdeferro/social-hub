@@ -30,7 +30,7 @@ Esta página funciona como um **hub central de redes sociais**, permitindo que v
 ## 🌐 Acesso ao Hub
 
 👉 **Link oficial (GitHub Pages):**  
-https://alexialuzdeferro.github.io/pombagiras-hub/
+https://alexialuzdeferro.github.io/social-hub/
 
 *(ajuste o nome do repositório se necessário)*
 
